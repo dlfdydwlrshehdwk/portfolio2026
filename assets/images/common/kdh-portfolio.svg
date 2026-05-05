@@ -1,0 +1,19 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crafty+Girls&amp;display=swap');
+  </style>
+  <text
+    x="50%"
+    y="50%"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="'Crafty Girls', cursive"
+    font-size="72"
+    fill="#000000"
+    stroke="#000000"
+    stroke-width="2"
+    letter-spacing="2"
+  >
+    KDH portfolio
+  </text>
+</svg>

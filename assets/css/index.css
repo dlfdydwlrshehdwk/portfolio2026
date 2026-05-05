@@ -1,0 +1,145 @@
+/* ── Intro ── */
+.intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.intro.is-done {
+  transform: translateY(-100%);
+}
+
+/* sign 이미지: path드로잉 SVG 교체 전 임시로 clip-path reveal 사용 */
+.intro__sign-image {
+  width: clamp(160px, 25vw, 320px);
+  height: auto;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.intro__sign-image.is-animating {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* 우측 하단 퍼센트 카운터 */
+.intro__counter {
+  position: absolute;
+  bottom: 40px;
+  right: 48px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  line-height: 1;
+}
+
+.intro__number {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 900;
+  color: #111;
+  font-variant-numeric: tabular-nums;
+}
+
+.intro__percent {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3vw, 36px);
+  font-weight: 700;
+  color: #111;
+}
+
+@media (max-width: 767px) {
+  .intro__counter {
+    bottom: 24px;
+    right: 24px;
+  }
+}
+
+/* ── Hero ── */
+.hero {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero_title {
+  font-size: clamp(36px, 6vw, 72px);
+}
+
+
+/* ── SVG 텍스트 드로잉 애니메이션 ── */
+.sign-svg {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* 개별 문자 — stroke + fill 동시 애니메이션 */
+.sign-char {
+  fill: #000000;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: charAppear 0.5s ease forwards;
+}
+
+@keyframes charAppear {
+  to { stroke-dashoffset: 0; }
+}
+
+
+
+.paper-card {
+    position: relative;
+    background: rgba(250, 249, 245, 0.88);
+    box-shadow: 12px 18px 30px rgba(0,0,0,0.12);
+    transform: rotate(-0.5deg);
+}
+
+.paper-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px),
+        linear-gradient(135deg, rgba(255,255,255,0.45), rgba(0,0,0,0.035));
+    background-size: 3px 3px, 100% 100%;
+    pointer-events: none;
+}
+
+.paper-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.paper-line path {
+    fill: none;
+    stroke: #111;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* .paper-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hand-line {
+    fill: #111;
+} */
