@@ -1,13 +1,13 @@
 // Lenis 인스턴스 생성 (전역 접근을 위해 window에 할당하지 않고 전역 스코프에 선언)
-// const lenis = new Lenis();
+const lenis = new Lenis();
 
-// // requestAnimationFrame 루프로 Lenis 매 프레임 업데이트
-// function raf(time) {
-//   lenis.raf(time);
-//   requestAnimationFrame(raf);
-// }
+// requestAnimationFrame 루프로 Lenis 매 프레임 업데이트
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
 
-// requestAnimationFrame(raf);
+requestAnimationFrame(raf);
 
 // ── Nav Overlay ──
 
@@ -74,7 +74,7 @@ document.querySelectorAll('.nav-overlay__link').forEach(link => {
 });
 
 // ── 헤더 링크 RoughNotation 밑줄 효과 ──
-// if (typeof RoughNotation !== 'undefined') {
+if (typeof RoughNotation !== 'undefined') {
 //   document.querySelectorAll('.header ul li > a').forEach(link => {
 //     // 초록색 굵은 밑줄 (하단 레이어)
 //     const greenLine = RoughNotation.annotate(link, {
@@ -108,7 +108,25 @@ document.querySelectorAll('.nav-overlay__link').forEach(link => {
 //       blackLine.hide();
 //     });
 //   });
-// }
+
+  const headerLogo = document.querySelector('.header__logo');
+  const circle = RoughNotation.annotate(headerLogo, {
+    type: 'circle',
+    color: '#111',
+    strokeWidth: 1,
+    padding: 8,
+    roughness: 2,
+    animationDuration: 350,
+    iterations: 2,
+  })
+    headerLogo.addEventListener('mouseenter', () => {
+      circle.show();
+    });
+
+    headerLogo.addEventListener('mouseleave', () => {
+      circle.hide();
+    });
+}
 
 // 햄버거 버튼 클릭 시 오버레이 열기/닫기 및 스크롤 제어
 hamburger.addEventListener('click', () => {
