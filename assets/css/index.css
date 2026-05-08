@@ -61,6 +61,7 @@
     right: 24px;
   }
 }
+/* ── Intro ── */
 
 /* ── Hero ── */
 .hero {
@@ -69,50 +70,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .hero_title {
   font-size: clamp(36px, 6vw, 72px);
+  display: flex;
 }
 
-
-/* ── SVG 텍스트 드로잉 애니메이션 ── */
-.sign-svg {
-  display: block;
-  width: 100%;
-  max-width: 600px;
+/* 글자 bounce — JS로 제어, span 기본 스타일만 */
+.hero_title span {
+  display: inline-block;
+  transform-origin: bottom center;
 }
-
-/* 개별 문자 — stroke + fill 동시 애니메이션 */
-.sign-char {
-  fill: #000000;
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
-  animation: charAppear 0.5s ease forwards;
-}
-
-@keyframes charAppear {
-  to { stroke-dashoffset: 0; }
-}
+/* ── Hero ── */
 
 
 
+
+/* ── paper-card ── */
 .paper-card {
-    position: relative;
-    background: rgba(250, 249, 245, 0.88);
-    box-shadow: 12px 18px 30px rgba(0,0,0,0.12);
-    transform: rotate(-0.5deg);
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  padding: 3% 30px;
+  gap: clamp(30px, 5vw, 60px);
+  opacity: 0;
+  transform: rotate(-0.5deg) translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.paper-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px),
-        linear-gradient(135deg, rgba(255,255,255,0.45), rgba(0,0,0,0.035));
-    background-size: 3px 3px, 100% 100%;
-    pointer-events: none;
+.paper-card.is-visible {
+  opacity: 1;
+  transform: rotate(-0.5deg) translateY(0);
+}
+
+.paper-card + .paper-card {
+  margin-top: 120px;
 }
 
 .paper-line {
@@ -126,20 +121,245 @@
 .paper-line path {
     fill: none;
     stroke: #111;
-    stroke-width: 2;
+    stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
+
+    /* 추가시 선이 일정해짐 */
+    /* vector-effect: non-scaling-stroke; */
+}
+
+.paper-card .card-number {
+  position: absolute;
+  font-family: "Shantell Sans", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "BNCE" 0,
+    "INFM" 0,
+    "SPAC" 0;
+  font-size: clamp(32px, 6vw, 72px);
+}
+
+.paper-card .card-number span {
+  transform: rotate(-10deg);
+  display: inline-block;
+}
+
+.paper-card .info {
+  padding: 120px 50px 80px;
+  flex-shrink: 0;
+  max-width: 40%;
+}
+
+.paper-card .info .category {
+  font-size: clamp(14px, 1.5vw, 18px);
+}
+
+.paper-card .info .title {
+  font-size: clamp(36px, 6vw, 72px);
+  letter-spacing: 0.02em;
+  display: inline-block;
+  margin-top: 16px;
+  position: relative;
+  z-index: 100;
+}
+
+.paper-card .info .title .show-text {
+  position: relative;
+  z-index: 10000;
+}
+
+.paper-card .info .title .rough {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 110%;
+  height: 50%;
+  opacity: 0;
+  z-index: -1;
+}
+
+.paper-card .info .title svg {
+  z-index: -1;
+}
+
+.paper-card .info .desc {
+  margin-top: 48px;
+  line-height: 2;
+  font-weight: 600;
+  font-size: clamp(12px, 1.333vw, 16px);
+}
+
+.paper-card .info .desc .rough-annotation {
+  z-index: -1 !important;
+}
+
+.paper-card .info .hashtag {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 6px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.paper-card .info .view-project {
+    text-transform: uppercase;
+    margin-top: 60px;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    font-size: clamp(12px, 2vw, 24px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.paper-card .info .view-project:hover .arrow-line {
+  animation: drawLine .35s forwards;
+  animation-delay: .35s;
+}
+
+.paper-card .info .view-project:hover .arrow-head {
+  animation: drawHead .25s forwards;
+  animation-delay: .7s;
+}
+
+.paper-card .img-wrap {
+  position: relative;
+}
+
+.paper-card .img-wrap .main-img {
+  position: relative;
+}
+
+.paper-card .img-wrap .sub-img {
+  position: absolute;
+}
+
+.paper-card-1 .img-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.paper-card-1 .img-wrap .main-img {
+  width: 60%;
+  position: relative;
+}
+
+.paper-card-1 .img-wrap .main-img > img {
+  transform: rotate(3deg);
+}
+
+.paper-card-1 .img-wrap .sub-img-1 {
+  width: 60%;
+  bottom: -14%;
+  right: -28%;
+}
+
+.paper-card-1 .img-wrap .sub-img-2 {
+  width: 60%;
+  top: -29%;
+  right: -56%;
+  z-index: -1;
+}
+
+.paper-card-2 .img-wrap {
+  position: relative;
+}
+.paper-card-2 .img-wrap .main-img {
+    padding-top: 10%;
+    width: 60%;
+    transform: rotate(5deg);
+}
+.paper-card-2 .img-wrap .main-img > img {
+}
+.paper-card-2 .img-wrap .sub-img-1 {
+  width: 25%;
+  left: 30%;
+  bottom: 5%;
+}
+.paper-card-2 .img-wrap .sub-img-2 {
+  width: 60%;
+  left: 100%;
+  bottom: 0;
+}
+
+.paper-card-3 .img-wrap .box-1 {
+  transform-origin: center top;
+  display: flex;
+  align-items: end;
+  transform: scale(0.8);
+}
+.paper-card-3 .img-wrap .sub-img-1 {
+  position: static;
+}
+.paper-card-3 .img-wrap .sub-img-1 img {
+  width: 60%;
+  transform: translateY(10%);
+  position: relative;
+  border: 5px solid #c9ea35;
+  left: -5px;
+}
+.paper-card-3 .img-wrap .sub-img-2 {
+  width: 50%;
+  left: 65%;
+  transform: translateX(-50%);
+  bottom: -20%;
+  border: 5px solid #c9ea35;
+}
+
+.paper-card-1 .card-number {
+  color: #c6eb33;
+}
+
+.paper-card-2 .card-number {
+  color: #e16ca3;
+}
+
+.paper-card-3 .card-number {
+  color: #c9ea35;
 }
 
 
-/* .paper-line {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+
+
+
+
+
+
+
+
+.draw-arrow {
+    width: 90px;
+    height: 50px;
 }
 
-.hand-line {
-    fill: #111;
-} */
+.draw-arrow path {
+    stroke: #111;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.arrow-line {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    
+}
+
+.arrow-head {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+
+
+}
+
+@keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes drawHead {
+    to { stroke-dashoffset: 0; }
+}

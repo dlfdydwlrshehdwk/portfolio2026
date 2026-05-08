@@ -62,7 +62,7 @@ function initSignAnimation() {
   text.split('').forEach((char, index) => {
     const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
     // 공백은 &nbsp; 처리 (SVG에서 공백 렌더링 보장)
-    tspan.textContent = char === ' ' ? ' ' : char;
+    tspan.textContent = char === ' ' ? ' ' : char;
     tspan.classList.add('sign-char');
     tspan.style.animationDelay = `${(BASE_DELAY + index * CHAR_DELAY).toFixed(2)}s`;
     textEl.appendChild(tspan);
@@ -79,11 +79,12 @@ function initHeroAnimation() {
   const text = heroTitle.textContent;
   heroTitle.textContent = '';
 
-  const CHAR_DELAY = 90;   // 글자 간 딜레이 ms
-  const DURATION = 1200;   // 글자 하나의 전체 이동 시간 ms
-  const BOUNCES = 3;       // 바운스 횟수
-  const BOUNCE_H = 62;     // 첫 바운스 높이 px
-  const DECAY = 0.48;      // 바운스 감쇠율
+  const CHAR_DELAY    = 90;    // 글자 간 딜레이 ms
+  const BOUNCE_H      = 62;    // 첫 바운스 높이 px
+  const DECAY         = 0.48;  // 바운스 감쇠율
+  const BASE_SPEED    = 0.15;  // 기존 속도 기준 px/ms (180px / 1200ms)
+  const MS_PER_BOUNCE = 400;   // 기존 bounce 리듬 유지 (1200ms / 3회)
+  const MAX_DURATION  = 2800;  // 상한 클램핑
 
   function easeOutQuad(t) {
     return t * (2 - t);
@@ -91,7 +92,7 @@ function initHeroAnimation() {
 
   const spans = [...text].map(char => {
     const span = document.createElement('span');
-    span.textContent = char === ' ' ? ' ' : char;
+    span.textContent = char === ' ' ? ' ' : char;
     span.style.display = 'inline-block';
     span.style.transformOrigin = 'bottom center';
     span.style.opacity = '0';
@@ -99,47 +100,55 @@ function initHeroAnimation() {
     return span;
   });
 
-  spans.forEach((span, index) => {
-    // 먼저 출발하는 글자일수록 더 멀리서 시작
-    const startX = 180 + (spans.length - 1 - index) * 12;
+  // 레이아웃 안정 후 각 글자 실제 위치 측정
+  requestAnimationFrame(() => {
+    spans.forEach((span, index) => {
+      const rect = span.getBoundingClientRect();
+      // 각 글자 기준 화면 경계 바로 밖 최소 거리
+      const startX   = Math.max(50, window.innerWidth - rect.left + 20);
+      // 기존 속도(px/ms)로 이동 시간 계산, 최대값 제한
+      const duration = Math.min(startX / BASE_SPEED, MAX_DURATION);
+      // 기존 bounce 리듬(ms/회)을 유지하며 횟수 결정
+      const bounces  = Math.max(2, Math.round(duration / MS_PER_BOUNCE));
 
-    setTimeout(() => {
-      let startTime = null;
+      setTimeout(() => {
+        let startTime = null;
 
-      function tick(now) {
-        if (!startTime) startTime = now;
-        const t = Math.min((now - startTime) / DURATION, 1);
+        function tick(now) {
+          if (!startTime) startTime = now;
+          const t = Math.min((now - startTime) / duration, 1);
 
-        // X: easeOut으로 오른쪽 밖에서 자기 자리로
-        const x = startX * (1 - easeOutQuad(t));
+          // X: easeOut으로 오른쪽 밖에서 자기 자리로
+          const x = startX * (1 - easeOutQuad(t));
 
-        // Y: 구간별 감쇠 bounce
-        const segLen = 1 / BOUNCES;
-        const segIndex = Math.min(Math.floor(t / segLen), BOUNCES - 1);
-        const segT = (t - segIndex * segLen) / segLen;
-        const segH = BOUNCE_H * Math.pow(DECAY, segIndex);
-        const y = segH * Math.sin(Math.PI * segT);
+          // Y: 구간별 감쇠 bounce
+          const segLen   = 1 / bounces;
+          const segIndex = Math.min(Math.floor(t / segLen), bounces - 1);
+          const segT     = (t - segIndex * segLen) / segLen;
+          const segH     = BOUNCE_H * Math.pow(DECAY, segIndex);
+          const y        = segH * Math.sin(Math.PI * segT);
 
-        // squash & stretch: 공중에서 늘고 착지 시 납작해짐
-        const phase = Math.sin(Math.PI * segT);
-        const scaleX = 1 + (1 - phase) * 0.3 - phase * 0.1;
-        const scaleY = 1 - (1 - phase) * 0.28 + phase * 0.14;
+          // squash & stretch: 공중에서 늘고 착지 시 납작해짐
+          const phase  = Math.sin(Math.PI * segT);
+          const scaleX = 1 + (1 - phase) * 0.3 - phase * 0.1;
+          const scaleY = 1 - (1 - phase) * 0.28 + phase * 0.14;
 
-        span.style.transform = `translateX(${x}px) translateY(${-y}px) scaleX(${scaleX}) scaleY(${scaleY})`;
-        span.style.opacity = '1';
+          span.style.transform = `translateX(${x}px) translateY(${-y}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+          span.style.opacity = '1';
 
-        if (t < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          // squash 상태에서 즉시 리셋하면 튀어보이므로 짧게 transition 후 해제
-          span.style.transition = 'transform 0.13s ease-out';
-          span.style.transform = 'none';
-          setTimeout(() => { span.style.transition = ''; }, 150);
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            // squash 상태에서 즉시 리셋하면 튀어보이므로 짧게 transition 후 해제
+            span.style.transition = 'transform 0.13s ease-out';
+            span.style.transform = 'none';
+            setTimeout(() => { span.style.transition = ''; }, 150);
+          }
         }
-      }
 
-      requestAnimationFrame(tick);
-    }, index * CHAR_DELAY);
+        requestAnimationFrame(tick);
+      }, index * CHAR_DELAY);
+    });
   });
 }
 

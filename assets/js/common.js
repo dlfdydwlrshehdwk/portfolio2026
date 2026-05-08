@@ -75,40 +75,8 @@ document.querySelectorAll('.nav-overlay__link').forEach(link => {
 
 // ── 헤더 링크 RoughNotation 밑줄 효과 ──
 if (typeof RoughNotation !== 'undefined') {
-//   document.querySelectorAll('.header ul li > a').forEach(link => {
-//     // 초록색 굵은 밑줄 (하단 레이어)
-//     const greenLine = RoughNotation.annotate(link, {
-//       type: 'underline',
-//       color: '#4caf50',
-//       strokeWidth: 2.5,
-//       padding: 4,
-//       roughness: 2,
-//       animationDuration: 350,
-//     });
 
-//     // 검은색 얇은 밑줄 (상단 레이어)
-//     const blackLine = RoughNotation.annotate(link, {
-//       type: 'underline',
-//       color: '#111111',
-//       strokeWidth: 1,
-//       padding: 1,
-//       roughness: 2,
-//       animationDuration: 350,
-//     });
-
-//     // 호버 시 두 레이어 동시 표시
-//     link.addEventListener('mouseenter', () => {
-//       greenLine.show();
-//       blackLine.show();
-//     });
-
-//     // 호버 해제 시 즉시 제거
-//     link.addEventListener('mouseleave', () => {
-//       greenLine.hide();
-//       blackLine.hide();
-//     });
-//   });
-
+  // 로고 동그라미 애니메이션
   const headerLogo = document.querySelector('.header__logo');
   const circle = RoughNotation.annotate(headerLogo, {
     type: 'circle',
@@ -119,13 +87,13 @@ if (typeof RoughNotation !== 'undefined') {
     animationDuration: 350,
     iterations: 2,
   })
-    headerLogo.addEventListener('mouseenter', () => {
-      circle.show();
-    });
+  headerLogo.addEventListener('mouseenter', () => {
+    circle.show();
+  });
 
-    headerLogo.addEventListener('mouseleave', () => {
-      circle.hide();
-    });
+  headerLogo.addEventListener('mouseleave', () => {
+    circle.hide();
+  });
 }
 
 // 햄버거 버튼 클릭 시 오버레이 열기/닫기 및 스크롤 제어
