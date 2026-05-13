@@ -322,6 +322,122 @@
 }
 
 
+.sticker-box.cafe24 {
+  top: 4%;
+  left: 47%;
+  width: 13%;
+  rotate: 4deg;
+}
+.sticker-box.cafe24 .sticker {
+  aspect-ratio: 146/45;
+}
+.sticker-box.cafe24 .sticker-anim {
+  aspect-ratio: 335 / 206;
+}
+
+.sticker-box.godo {
+  bottom: 25%;
+  right: 3%;
+  width: 13%;
+  rotate: 9deg;
+}
+.sticker-box.godo .sticker {
+  aspect-ratio: 146/45;
+}
+.sticker-box.godo .sticker-anim {
+  aspect-ratio: 335 / 206;
+}
+
+.sticker-box.react {
+  top: -13%;
+  right: 6%;
+  width: 13%;
+  rotate: 18deg;
+}
+.sticker-box.react .sticker {
+  aspect-ratio: 64/57;
+}
+.sticker-box.react .sticker-anim {
+  aspect-ratio: 64/114;
+}
+
+.sticker-box.html {
+  top: -13%;
+  left: 23%;
+  width: 13%;
+  rotate: 18deg;
+}
+.sticker-box.html .sticker {
+  aspect-ratio: 1/1;
+}
+.sticker-box.html .sticker-anim {
+  aspect-ratio: 1/2;
+}
+
+.sticker-box.css {
+  bottom: -2%;
+  left: 30%;
+  width: 13%;
+  rotate: -16deg;
+}
+.sticker-box.css .sticker {
+  aspect-ratio: 1024/1536;
+}
+.sticker-box.css .sticker-anim {
+  aspect-ratio: 1024/3072;
+}
+
+.sticker-box.js {
+  bottom: 3%;
+  right: 6%;
+  width: 13%;
+  rotate: 24deg;
+}
+.sticker-box.js .sticker {
+  aspect-ratio: 1/1;
+}
+.sticker-box.js .sticker-anim {
+  aspect-ratio: 1/2;
+}
+
+.sticker-box.gpt {
+  bottom: 3%;
+  left: 6%;
+  width: 13%;
+  rotate: -12deg;
+}
+.sticker-box.gpt .sticker {
+  aspect-ratio: 1/1;
+}
+.sticker-box.gpt .sticker-anim {
+  aspect-ratio: 1/2;
+}
+
+.sticker-box.gemini {
+  bottom: 3%;
+  right: 6%;
+  width: 13%;
+  rotate: 24deg;
+}
+.sticker-box.gemini .sticker {
+  aspect-ratio: 1/1;
+}
+.sticker-box.gemini .sticker-anim {
+  aspect-ratio: 1/2;
+}
+
+.sticker-box.claude {
+  top: 3%;
+  left: 16%;
+  width: 13%;
+  rotate: -18deg;
+}
+.sticker-box.claude .sticker {
+  aspect-ratio: 1/1;
+}
+.sticker-box.claude .sticker-anim {
+  aspect-ratio: 1/2;
+}
 
 
 

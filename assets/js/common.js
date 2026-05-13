@@ -1,5 +1,5 @@
 // Lenis 인스턴스 생성 (전역 접근을 위해 window에 할당하지 않고 전역 스코프에 선언)
-const lenis = new Lenis();
+var lenis = new Lenis();
 
 // requestAnimationFrame 루프로 Lenis 매 프레임 업데이트
 function raf(time) {

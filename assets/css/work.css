@@ -1,0 +1,181 @@
+main {
+  margin-top: 92px;
+  * {
+    font-family: 'Pretendard', sans-serif;
+  }
+}
+
+.tab-panel { 
+  display: none; 
+  /* margin-top: 20vh; */
+}
+.tab-panel.is-active {
+  display: block;
+}
+
+.work-tabs {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 92px;
+  gap: 16px;
+  > li {
+    button {
+      display: flex;
+      align-items: center;
+      transition: rotate .3s;
+      padding: 12px 20px;
+      border: 1px solid #111;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 500;
+      background-color: var(--background);
+      > span {
+        font-family: "Shadows Into Light Two", cursive;
+        font-weight: 600;
+        margin-right: 8px;
+        font-size: 20px;
+        letter-spacing: 0.1em;
+      }
+      &:hover {
+        rotate: -4deg;
+      }
+      &.is-active {
+        background-color: #1a1a1a;
+        rotate: -4deg;
+      }
+      &[data-tab="ecommerce"] {
+        &.is-active {
+          color: var(--ecommerce);
+        }
+      }
+      &[data-tab="brand"] {
+        &.is-active {
+          color: var(--brand);
+        }
+      }
+      &[data-tab="ai"] {
+        &.is-active {
+          color: var(--ai);
+        }
+      }
+    }
+  }
+}
+
+.grid-set {
+  display: grid;
+  gap: 50px;
+}
+.grid-set + .grid-set {
+  margin-top: 50px;
+}
+.grid-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 좌측 고정 info 패널 */
+.project-info-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 30%;
+  height: 100vh;
+}
+
+/* 우측 스크롤 이미지 영역 */
+.projects-scroll {
+  margin-left: 30%;
+}
+
+.project {
+  padding: 120px 0;
+}
+.project__category {
+
+}
+.project__name {
+  font-size: clamp(30px, 5vw, 60px);
+  margin-top: 8px;
+  font-weight: 500;
+}
+.project__stack {
+  display: flex;
+  gap: 8px;
+}
+.project__stack [class*="stack-"] {
+  display: block;
+  height: 48px;
+}
+.project__stack .stack-cafe24 {
+  background: url(../images/work/stack/cafe24.webp) no-repeat center/cover;
+  aspect-ratio: 335/103;
+}
+.project__stack .stack-godo {
+  background: url(../images/work/stack/godo.png) no-repeat center/cover;
+  aspect-ratio: 1300/359;
+}
+.project__stack .stack-html {
+  background: url(../images/work/stack/html.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-css {
+  background: url(../images/work/stack/css.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-js {
+  background: url(../images/work/stack/js.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-react {
+  background: url(../images/work/stack/react.png) no-repeat center/cover;
+  aspect-ratio: 960/855;
+}
+.project__stack .stack-claude {
+  background: url(../images/work/stack/claude.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-gpt {
+  background: url(../images/work/stack/gpt.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-gemini {
+  background: url(../images/work/stack/gemini.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-next {
+  background: url(../images/work/stack/next.webp) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+.project__stack .stack-gsap {
+  background: url(../images/work/stack/gsap.png) no-repeat center/cover;
+  aspect-ratio: 1/1;
+}
+
+.info-content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  padding: 0 60px;
+  opacity: 0;
+  pointer-events: none;
+  /* 중앙 기준 30px 아래에서 시작 */
+  transform: translateY(calc(-50% + 30px));
+}
+
+.info-content.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
