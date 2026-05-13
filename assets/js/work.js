@@ -74,3 +74,61 @@ mobileBreakpoint.addEventListener('change', () => {
 
 // 초기 실행
 initProjectObserver(document.querySelector('.tab-panel.is-active'));
+
+
+// view project 호버 밑줄
+if (typeof RoughNotation !== 'undefined') {
+
+  document.querySelectorAll('.info-content').forEach(infoContent => {
+    const accentColor = infoContent.dataset.accent || '#c6eb33';
+    const link = infoContent.querySelector('.project__link a');
+    if (!link) return;
+
+    const labelSpan = link.querySelector('.view-label');
+    if (!labelSpan) return;
+
+    // accent 굵은 밑줄
+    const accentLine = RoughNotation.annotate(labelSpan, {
+      type: 'underline',
+      color: accentColor,
+      strokeWidth: 6,
+      padding: 8,
+      roughness: 1,
+      animationDuration: 350,
+      iterations: 1,
+    });
+    // 검은색 얇은 밑줄
+    const blackLine = RoughNotation.annotate(labelSpan, {
+      type: 'underline',
+      color: '#111111',
+      strokeWidth: 2,
+      padding: 6,
+      roughness: 1,
+      animationDuration: 350,
+      iterations: 1,
+    });
+
+    link.addEventListener('mouseenter', () => {
+      accentLine.show();
+      blackLine.show();
+
+      // accent 아래(z:1), black 위(z:2)
+      link.querySelectorAll('svg.rough-annotation').forEach(svg => {
+        const path = svg.querySelector('path');
+        if (!path) return;
+        const stroke = path.getAttribute('stroke');
+        if (stroke === accentColor) svg.style.zIndex = '1';
+        if (stroke === '#111111') svg.style.zIndex = '2';
+      });
+    });
+
+    link.addEventListener('mouseleave', () => {
+      accentLine.hide();
+      blackLine.hide();
+
+      link.querySelectorAll('svg.rough-annotation').forEach(svg => {
+        svg.style.zIndex = '';
+      });
+    });
+  });
+}

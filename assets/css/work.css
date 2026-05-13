@@ -67,20 +67,29 @@ main {
   display: grid;
   gap: 50px;
 }
-.grid-set + .grid-set {
-  margin-top: 50px;
-}
 .grid-1 {
   grid-template-columns: repeat(1, 1fr);
 }
 .grid-2 {
   grid-template-columns: repeat(2, 1fr);
 }
+.grid-2-8 {
+  grid-template-columns: 2fr 8fr;
+}
 .grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
 .grid-4 {
   grid-template-columns: repeat(4, 1fr);
+}
+.grid-set .size-full {
+  height: 100%;
+  object-fit: cover;
+}
+.grid-set img,
+.grid-set video {
+  pointer-events: none;
+  user-select: none;
 }
 
 /* 좌측 고정 info 패널 */
@@ -95,13 +104,17 @@ main {
 /* 우측 스크롤 이미지 영역 */
 .projects-scroll {
   margin-left: 30%;
+  padding-right: 5vw;
 }
 
 .project {
   padding: 120px 0;
 }
+.project__grid-wrap > .grid-set + .grid-set {
+  margin-top: 50px;
+}
 .project__category {
-
+  font-size: clamp(12px, 2vw, 24px);
 }
 .project__name {
   font-size: clamp(30px, 5vw, 60px);
@@ -160,13 +173,52 @@ main {
   background: url(../images/work/stack/gsap.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+.project__link {
+  margin-top: 60px;
+  display: inline-flex;
+}
+.project__link a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  font-size: clamp(12px, 2vw, 24px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.draw-arrow {
+  width: 90px;
+  height: 50px;
+  overflow: visible;
+  flex-shrink: 0;
+}
+.draw-arrow .arrow-line,
+.draw-arrow .arrow-head {
+  stroke: #111;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.project__link a:hover .arrow-line {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.3s ease;
+}
+.project__link a:hover .arrow-head {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.3s ease 0.2s;
+}
 
 .info-content {
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  padding: 0 60px;
+  padding: 0 5vw;
   opacity: 0;
   pointer-events: none;
   /* 중앙 기준 30px 아래에서 시작 */
