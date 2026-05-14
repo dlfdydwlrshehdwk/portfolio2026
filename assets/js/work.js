@@ -1,7 +1,62 @@
 const mobileBreakpoint = window.matchMedia('(max-width: 767px)');
 
+// ── info-content annotation 관리 ──
+const contentAnnotationMap = new Map();
+
+function setupContentAnnotations(infoContent) {
+  if (!window.RoughNotation) return;
+
+  const accentColor = infoContent.dataset.accent || '#c6eb33';
+  const roughEl = infoContent.querySelector('.project__name .rough');
+  const descSpan = infoContent.querySelector('.project__desc span');
+  const annotations = [];
+
+  if (roughEl) {
+    annotations.push(RoughNotation.annotate(roughEl, {
+      type: 'highlight',
+      color: accentColor,
+      strokeWidth: 200,
+      padding: 0,
+      roughness: 2000,
+      animationDuration: 350,
+      iterations: 3,
+    }));
+  }
+
+  if (descSpan) {
+    annotations.push(RoughNotation.annotate(descSpan, {
+      type: 'underline',
+      color: '#111111',
+      strokeWidth: 2,
+      roughness: 1,
+      animationDuration: 400,
+      iterations: 1,
+    }));
+  }
+
+  contentAnnotationMap.set(infoContent, annotations);
+}
+
+function showContentAnnotations(infoContent) {
+  const annotations = contentAnnotationMap.get(infoContent);
+  if (!annotations) return;
+  // 재등장 시 항상 처음부터 애니메이션 실행
+  annotations.forEach(a => a.hide());
+  // highlight 먼저, 200ms 후 underline
+  annotations.forEach((a, i) => setTimeout(() => a.show(), i * 200));
+}
+
+function hideContentAnnotations(infoContent) {
+  const annotations = contentAnnotationMap.get(infoContent);
+  if (!annotations) return;
+  annotations.forEach(a => a.hide());
+}
+
 // ── info-content 교체 (패널 내 컨텍스트로 탐색) ──
 function switchInfoContent(id, panel) {
+  const currentActive = panel.querySelector('.info-content.is-active');
+  if (currentActive) hideContentAnnotations(currentActive);
+
   panel.querySelectorAll('.info-content').forEach(el => {
     el.classList.remove('is-active');
   });
@@ -9,7 +64,11 @@ function switchInfoContent(id, panel) {
   const target = panel.querySelector(`.info-content[data-project="${id}"]`);
   if (!target) return;
 
-  requestAnimationFrame(() => target.classList.add('is-active'));
+  requestAnimationFrame(() => {
+    target.classList.add('is-active');
+    // fade in(0.7s) 시작 후 annotation 실행
+    setTimeout(() => showContentAnnotations(target), 300);
+  });
 }
 
 // ── 프로젝트 IntersectionObserver ──
@@ -31,7 +90,10 @@ function initProjectObserver(panel) {
   const firstProject = panel.querySelector('.project[data-project]');
   if (firstProject) {
     const firstContent = panel.querySelector(`.info-content[data-project="${firstProject.dataset.project}"]`);
-    if (firstContent) firstContent.classList.add('is-active');
+    if (firstContent) {
+      firstContent.classList.add('is-active');
+      setTimeout(() => showContentAnnotations(firstContent), 300);
+    }
   }
 
   projectObserver = new IntersectionObserver((entries) => {
@@ -78,6 +140,11 @@ initProjectObserver(document.querySelector('.tab-panel.is-active'));
 
 // view project 호버 밑줄
 if (typeof RoughNotation !== 'undefined') {
+
+  // 모든 info-content annotation 사전 등록
+  document.querySelectorAll('.info-content').forEach(infoContent => {
+    setupContentAnnotations(infoContent);
+  });
 
   document.querySelectorAll('.info-content').forEach(infoContent => {
     const accentColor = infoContent.dataset.accent || '#c6eb33';
