@@ -65,6 +65,7 @@
 
 /* ── Hero ── */
 .hero {
+  position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -73,10 +74,72 @@
   overflow: hidden;
 }
 
+.scroll-indicator {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+}
+.scroll-indicator.is-visible {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+.scroll-indicator__text {
+  font-size: clamp(12px, 1.167vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: "Permanent Marker", cursive;
+}
+.scroll-indicator__svg {
+  width: 20px;
+  height: 56px;
+}
+.si-line {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+}
+.si-head {
+  fill: none;
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
+.scroll-indicator.is-visible .si-line {
+  animation: si-line-draw 0.6s ease forwards;
+}
+.scroll-indicator.is-visible .si-head {
+  animation: si-head-draw 0.5s ease 0.5s forwards;
+}
+.scroll-indicator.is-bobbing svg {
+  animation: si-bob 1.6s ease-in-out infinite;
+}
+@keyframes si-line-draw {
+  from { stroke-dashoffset: 180; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes si-head-draw {
+  from { stroke-dashoffset: 140; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes si-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
 .hero_title {
   font-size: clamp(36px, 6vw, 72px);
   display: flex;
 }
+@keyframes nudge  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(14px); } }
+@keyframes wobble { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+
+.nudge  { animation: nudge 1.6s ease-in-out infinite; transform-origin: center; }
+.wobble { animation: wobble 2.4s ease-in-out infinite; }
 
 /* 글자 bounce — JS로 제어, span 기본 스타일만 */
 .hero_title span {
@@ -322,6 +385,9 @@
 }
 
 
+.sticker-box {
+  pointer-events: none;
+}
 .sticker-box.cafe24 {
   top: 4%;
   left: 47%;
@@ -330,6 +396,7 @@
 }
 .sticker-box.cafe24 .sticker {
   aspect-ratio: 146/45;
+  width: 10vw;
 }
 .sticker-box.cafe24 .sticker-anim {
   aspect-ratio: 335 / 206;
@@ -343,6 +410,7 @@
 }
 .sticker-box.godo .sticker {
   aspect-ratio: 146/45;
+  width: 9vw;
 }
 .sticker-box.godo .sticker-anim {
   aspect-ratio: 335 / 206;
@@ -353,6 +421,7 @@
   right: 6%;
   width: 13%;
   rotate: 18deg;
+  width: 10vw;
 }
 .sticker-box.react .sticker {
   aspect-ratio: 64/57;
@@ -369,22 +438,24 @@
 }
 .sticker-box.html .sticker {
   aspect-ratio: 1/1;
+  width: 9vw;
 }
 .sticker-box.html .sticker-anim {
   aspect-ratio: 1/2;
 }
 
 .sticker-box.css {
-  bottom: -2%;
+  bottom: 9%;
   left: 30%;
   width: 13%;
   rotate: -16deg;
+  width: 9vw;
 }
 .sticker-box.css .sticker {
-  aspect-ratio: 1024/1536;
+  aspect-ratio: 1/1;
 }
 .sticker-box.css .sticker-anim {
-  aspect-ratio: 1024/3072;
+  aspect-ratio: 1/2;
 }
 
 .sticker-box.js {
@@ -392,6 +463,7 @@
   right: 6%;
   width: 13%;
   rotate: 24deg;
+  width: 8vw;
 }
 .sticker-box.js .sticker {
   aspect-ratio: 1/1;
@@ -401,10 +473,10 @@
 }
 
 .sticker-box.gpt {
-  bottom: 3%;
+  bottom: 15%;
   left: 6%;
-  width: 13%;
   rotate: -12deg;
+  width: 9vw;
 }
 .sticker-box.gpt .sticker {
   aspect-ratio: 1/1;
@@ -414,10 +486,10 @@
 }
 
 .sticker-box.gemini {
-  bottom: 3%;
-  right: 6%;
-  width: 13%;
+  top: 14%;
+  right: 8%;
   rotate: 24deg;
+  width: 9vw;
 }
 .sticker-box.gemini .sticker {
   aspect-ratio: 1/1;
@@ -427,10 +499,10 @@
 }
 
 .sticker-box.claude {
-  top: 3%;
-  left: 16%;
-  width: 13%;
+  top: 0%;
+  left: 27%;
   rotate: -18deg;
+  width: 8vw;
 }
 .sticker-box.claude .sticker {
   aspect-ratio: 1/1;

@@ -1,4 +1,4 @@
-const mobileBreakpoint = window.matchMedia('(max-width: 767px)');
+const tabletBreakpoint = window.matchMedia('(max-width: 1024px)');
 
 // ── info-content annotation 관리 ──
 const contentAnnotationMap = new Map();
@@ -84,7 +84,7 @@ function initProjectObserver(panel) {
     el.classList.remove('is-active', 'enter-down', 'enter-up');
   });
 
-  if (mobileBreakpoint.matches) return;
+  if (tabletBreakpoint.matches) return;
 
   // 첫 번째 프로젝트 즉시 활성화
   const firstProject = panel.querySelector('.project[data-project]');
@@ -111,6 +111,28 @@ function initProjectObserver(panel) {
   panel.querySelectorAll('.project[data-project]').forEach(p => projectObserver.observe(p));
 }
 
+// ── info-content DOM 재배치 (반응형) ──
+function rearrangeInfoContents(panel, isTablet) {
+  const infoPanel = panel.querySelector('.project-info-panel');
+  if (!infoPanel) return;
+
+  if (isTablet) {
+    // 각 info-content를 해당 project 앞으로 이동
+    panel.querySelectorAll('.info-content').forEach(infoContent => {
+      const projectId = infoContent.dataset.project;
+      const project = panel.querySelector(`.project[data-project="${projectId}"]`);
+      if (!project) return;
+      const gridWrap = project.querySelector('.project__grid-wrap');
+      project.insertBefore(infoContent, gridWrap);
+    });
+  } else {
+    // 모든 info-content를 project-info-panel로 복귀
+    panel.querySelectorAll('.project[data-project] .info-content').forEach(infoContent => {
+      infoPanel.appendChild(infoContent);
+    });
+  }
+}
+
 // ── 탭 전환 ──
 document.querySelectorAll('.tab-button').forEach(button => {
   button.addEventListener('click', () => {
@@ -124,18 +146,23 @@ document.querySelectorAll('.tab-button').forEach(button => {
     activePanel.classList.add('is-active');
 
     lenis.scrollTo(0, { immediate: true });
+    rearrangeInfoContents(activePanel, tabletBreakpoint.matches);
     initProjectObserver(activePanel);
   });
 });
 
 // 미디어쿼리 변경 시 재초기화
-mobileBreakpoint.addEventListener('change', () => {
+tabletBreakpoint.addEventListener('change', () => {
   const activePanel = document.querySelector('.tab-panel.is-active');
-  if (activePanel) initProjectObserver(activePanel);
+  if (!activePanel) return;
+  rearrangeInfoContents(activePanel, tabletBreakpoint.matches);
+  initProjectObserver(activePanel);
 });
 
 // 초기 실행
-initProjectObserver(document.querySelector('.tab-panel.is-active'));
+const initialPanel = document.querySelector('.tab-panel.is-active');
+rearrangeInfoContents(initialPanel, tabletBreakpoint.matches);
+initProjectObserver(initialPanel);
 
 
 // view project 호버 밑줄

@@ -89,6 +89,7 @@ body {
 .gnb-link {
   position: relative;
   font-size: clamp(12px, 1.5vw, 18px);
+  font-weight: bold;
 }
 
 .gnb-mark {
@@ -297,6 +298,7 @@ body {
   filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
   will-change: transform, opacity;
   user-select: none;
+  opacity: 0;
 }
 .sticker-box .sticker-front {
   pointer-events: auto;
@@ -325,6 +327,9 @@ body {
 }
 .sticker-front img {
   transform: translateY(100%);
+}
+.sticker-box.active {
+  opacity: 1;
 }
 .sticker-box.active .sticker-back img {
   transform: translate3d(0, 100%, 0);

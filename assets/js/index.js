@@ -145,6 +145,21 @@ function initHeroAnimation() {
 
 initHeroAnimation();
 
+// hero 애니메이션 완료 후 scroll indicator 등장
+(function () {
+  const text = 'kdh portfolio';
+  const CHAR_DELAY = 90;
+  const DURATION   = 1200;
+  const totalMs    = (text.length - 1) * CHAR_DELAY + DURATION + 200;
+  setTimeout(() => {
+    const indicator = document.querySelector('.scroll-indicator');
+    if (!indicator) return;
+    indicator.classList.add('is-visible');
+    // si-line(0.6s) + si-head delay(0.5s) + si-head duration(0.5s) = 1.6s 후 bob 시작
+    setTimeout(() => indicator.classList.add('is-bobbing'), 1600);
+  }, totalMs);
+})();
+
 /* ── paper-card ── */
 
 // view project 버튼
@@ -324,26 +339,31 @@ if (typeof RoughNotation !== 'undefined') {
     // 카드별 afterCallback 정의
     let afterCallback = null;
 
+    let stickerDelay = 400;
+
     if (cardEl && cardEl.classList.contains('paper-card-1') && descUnderline) {
-      // paper-card-1: highlight 완료 후 desc underline
       afterCallback = () => descUnderline.show();
+      // highlight(350) + afterCallback delay(400) + descUnderline(400)
+      stickerDelay = 900;
     } else if (cardEl && cardEl.classList.contains('paper-card-2') && (card2Underline || card2Circle1 || card2Circle2 || card2Highlight)) {
-      // paper-card-2: underline → circle1 → circle2 → highlight 순서로 순차 실행
       afterCallback = () => {
         if (card2Underline) card2Underline.show();
         if (card2Circle1)   setTimeout(() => card2Circle1.show(),   450);
         if (card2Circle2)   setTimeout(() => card2Circle2.show(),   850);
         if (card2Highlight) setTimeout(() => card2Highlight.show(), 1250);
       };
+      // highlight + afterCallback delay(400) + 마지막 show 시작(1250) + 지속(400)
+      stickerDelay = 2100;
     } else if (cardEl && cardEl.classList.contains('paper-card-3') && (descBox || descHighlight)) {
-      // paper-card-3: box → highlight 순서로 순차 실행
       afterCallback = () => {
         if (descBox) descBox.show();
         if (descHighlight) setTimeout(() => descHighlight.show(), 450);
       };
+      // highlight + afterCallback delay(400) + descBox(400) + 450 + descHighlight(400)
+      stickerDelay = 1300;
     }
 
-    if (cardEl) cardActionMap.set(cardEl, { highlight, afterCallback });
+    if (cardEl) cardActionMap.set(cardEl, { highlight, afterCallback, stickerDelay });
   });
 
   // paper-card scroll trigger — 아래에서 fade in 후 highlight → afterCallback 순서 실행
@@ -359,8 +379,12 @@ if (typeof RoughNotation !== 'undefined') {
         const action = cardActionMap.get(card);
         if (!action) return;
         action.highlight.show();
-        // highlight animationDuration(350ms) 완료 후 afterCallback 실행
         if (action.afterCallback) setTimeout(action.afterCallback, 400);
+
+        // RoughNotation 완료 후 스티커 등장
+        setTimeout(() => {
+          card.querySelectorAll('.sticker-box').forEach(sticker => sticker.classList.add('active'));
+        }, action.stickerDelay ?? 400);
       }, { once: true });
 
       cardObserver.unobserve(card);
