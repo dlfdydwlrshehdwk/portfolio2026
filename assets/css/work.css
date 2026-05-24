@@ -1,14 +1,16 @@
 main {
   margin-top: 92px;
-  * {
-    font-family: 'Pretendard', sans-serif;
-  }
 }
 
-.tab-panel { 
-  display: none; 
+main * {
+  font-family: 'Pretendard', sans-serif;
+}
+
+.tab-panel {
+  display: none;
   /* margin-top: 20vh; */
 }
+
 .tab-panel.is-active {
   display: block;
 }
@@ -19,73 +21,81 @@ main {
   position: sticky;
   top: 92px;
   gap: 16px;
-  > li {
-    button {
-      display: flex;
-      align-items: center;
-      transition: rotate .3s;
-      padding: 12px 20px;
-      border: 1px solid #111;
-      border-radius: 24px;
-      font-size: 14px;
-      font-weight: 500;
-      background-color: var(--background);
-      > span {
-        font-family: "Shadows Into Light Two", cursive;
-        font-weight: 600;
-        margin-right: 8px;
-        font-size: 20px;
-        letter-spacing: 0.1em;
-      }
-      &:hover {
-        rotate: -4deg;
-      }
-      &.is-active {
-        background-color: #1a1a1a;
-        rotate: -4deg;
-      }
-      &[data-tab="ecommerce"] {
-        &.is-active {
-          color: var(--ecommerce);
-        }
-      }
-      &[data-tab="brand"] {
-        &.is-active {
-          color: var(--brand);
-        }
-      }
-      &[data-tab="ai"] {
-        &.is-active {
-          color: var(--ai);
-        }
-      }
-    }
-  }
+  z-index: 11;
 }
+
+.work-tabs li button {
+  display: flex;
+  align-items: center;
+  transition: rotate .3s;
+  padding: 12px 20px;
+  border: 1px solid #111;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--background);
+}
+
+.work-tabs li button > span {
+  font-family: "Shadows Into Light Two", cursive;
+  font-weight: 600;
+  margin-right: 8px;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+}
+
+.work-tabs li button:hover {
+  rotate: -4deg;
+}
+
+.work-tabs li button.is-active {
+  background-color: #1a1a1a;
+  rotate: -4deg;
+}
+
+.work-tabs li button[data-tab="ecommerce"].is-active {
+  color: var(--ecommerce);
+}
+
+.work-tabs li button[data-tab="brand"].is-active {
+  color: var(--brand);
+}
+
+.work-tabs li button[data-tab="ai"].is-active {
+  color: var(--ai);
+}
+
 
 .grid-set {
   display: grid;
   gap: 50px;
 }
+
 .grid-1 {
   grid-template-columns: repeat(1, 1fr);
 }
+
 .grid-2 {
   grid-template-columns: repeat(2, 1fr);
 }
+
 .grid-2-8 {
   grid-template-columns: 2fr 8fr;
 }
+
 .grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
+
 .grid-4 {
   grid-template-columns: repeat(4, 1fr);
 }
+
 .grid-set .size-full {
   height: 100%;
   object-fit: cover;
 }
+
 .grid-set img,
 .grid-set video {
   pointer-events: none;
@@ -110,12 +120,15 @@ main {
 .project {
   padding: 120px 0;
 }
+
 .project__grid-wrap > .grid-set + .grid-set {
   margin-top: 50px;
 }
+
 .project__category {
   font-size: clamp(12px, 2vw, 24px);
 }
+
 .project__name {
   position: relative;
   display: inline-block;
@@ -123,11 +136,13 @@ main {
   margin-top: 8px;
   font-weight: 500;
 }
+
 .project__name .show-text {
   position: relative;
   display: inline-block;
   z-index: 1;
 }
+
 .project__name .rough {
   position: absolute;
   top: 50%;
@@ -136,62 +151,86 @@ main {
   height: 50%;
   opacity: 0;
 }
+
 .project__stack {
   display: flex;
   gap: 8px;
+  margin-top: 16px;
 }
+
 .project__stack [class*="stack-"] {
   display: block;
   height: 48px;
 }
+
 .project__stack .stack-cafe24 {
   background: url(../images/work/stack/cafe24.webp) no-repeat center/cover;
   aspect-ratio: 335/103;
 }
+
 .project__stack .stack-godo {
   background: url(../images/work/stack/godo.png) no-repeat center/cover;
   aspect-ratio: 1300/359;
 }
+
 .project__stack .stack-html {
   background: url(../images/work/stack/1html.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
 .project__stack .stack-css {
   background: url(../images/work/stack/css.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
 .project__stack .stack-js {
   background: url(../images/work/stack/js.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
 .project__stack .stack-react {
   background: url(../images/work/stack/react.png) no-repeat center/cover;
   aspect-ratio: 960/855;
+  scale: .8;
 }
+
 .project__stack .stack-claude {
   background: url(../images/work/stack/claude.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
 .project__stack .stack-gpt {
   background: url(../images/work/stack/gpt.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
 .project__stack .stack-gemini {
   background: url(../images/work/stack/gemini.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
 .project__stack .stack-next {
   background: url(../images/work/stack/next.webp) no-repeat center/cover;
   aspect-ratio: 1/1;
+  scale: .8;
 }
+
 .project__stack .stack-gsap {
   background: url(../images/work/stack/gsap.png) no-repeat center/cover;
   aspect-ratio: 1/1;
 }
+
+.project__desc {
+  line-height: 1.5;
+  margin-top: 16px;
+  font-size: 16px;
+}
+
 .project__link {
   margin-top: 60px;
   display: inline-flex;
 }
+
 .project__link a {
   position: relative;
   display: inline-flex;
@@ -203,12 +242,14 @@ main {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
 .draw-arrow {
   width: 90px;
   height: 50px;
   overflow: visible;
   flex-shrink: 0;
 }
+
 .draw-arrow .arrow-line,
 .draw-arrow .arrow-head {
   stroke: #111;
@@ -219,13 +260,26 @@ main {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
 }
+
 .project__link a:hover .arrow-line {
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 0.3s ease;
 }
+
 .project__link a:hover .arrow-head {
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 0.3s ease 0.2s;
+}
+
+.project__grid-wrap > .grid-set {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.project__grid-wrap > .grid-set.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .info-content {
@@ -248,13 +302,65 @@ main {
 }
 
 @media (max-width: 1024px) {
+  .project__grid-wrap > .grid-set {
+    transform: translateY(15px);
+  }
+
+  .project {
+    padding: 60px 0;
+  }
+  .project__category {
+    font-size: 16px;
+  }
+  .project__stack {
+    gap: 4px;
+    margin-top: 12px;
+  }
+  .project__stack [class*="stack-"] {
+    height: 36px;
+  }
+  .project__desc {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+  .project__link {
+    margin-top: 20px;
+  }
+  .project__link a {
+    gap: 8px;
+    padding: 0px 0px;
+    font-size: 16px;
+  }
+  .project__grid-wrap > .grid-set + .grid-set {
+    margin-top: 8px;
+  }
+  .grid-set {
+    gap: 8px;
+  }
+
+  .work-tabs {
+    gap: 8px;
+  }
+
+  .work-tabs li button {
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 12px;
+  }
+
+  .work-tabs button > span {
+    display: none;
+  }
+
   .project-info-panel {
     display: none;
   }
+
   .projects-scroll {
     margin-left: 0;
     padding-left: 5vw;
   }
+
   .info-content {
     position: static;
     opacity: 1;
@@ -263,6 +369,7 @@ main {
     padding: 0;
     margin-bottom: 40px;
   }
+
   .info-content.is-active {
     transform: none;
     transition: none;

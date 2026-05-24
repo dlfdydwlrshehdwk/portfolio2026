@@ -8,11 +8,13 @@ function setupContentAnnotations(infoContent) {
 
   const accentColor = infoContent.dataset.accent || '#c6eb33';
   const roughEl = infoContent.querySelector('.project__name .rough');
-  const descSpan = infoContent.querySelector('.project__desc span');
-  const annotations = [];
+  const descSpans = infoContent.querySelectorAll('.project__desc span');
+
+  // annotate 옵션과 대상 element만 저장 → show 시 매번 새로 annotate해 animation 실행
+  const items = [];
 
   if (roughEl) {
-    annotations.push(RoughNotation.annotate(roughEl, {
+    items.push({ el: roughEl, options: {
       type: 'highlight',
       color: accentColor,
       strokeWidth: 200,
@@ -20,36 +22,41 @@ function setupContentAnnotations(infoContent) {
       roughness: 2000,
       animationDuration: 350,
       iterations: 3,
-    }));
+    }});
   }
 
-  if (descSpan) {
-    annotations.push(RoughNotation.annotate(descSpan, {
+  descSpans.forEach(span => {
+    items.push({ el: span, options: {
       type: 'underline',
-      color: '#111111',
+      color: accentColor,
       strokeWidth: 2,
       roughness: 1,
       animationDuration: 400,
       iterations: 1,
-    }));
-  }
+    }});
+  });
 
-  contentAnnotationMap.set(infoContent, annotations);
+  contentAnnotationMap.set(infoContent, { items, annotations: [] });
 }
 
 function showContentAnnotations(infoContent) {
-  const annotations = contentAnnotationMap.get(infoContent);
-  if (!annotations) return;
-  // 재등장 시 항상 처음부터 애니메이션 실행
-  annotations.forEach(a => a.hide());
-  // highlight 먼저, 200ms 후 underline
-  annotations.forEach((a, i) => setTimeout(() => a.show(), i * 200));
+  const data = contentAnnotationMap.get(infoContent);
+  if (!data) return;
+
+  // 기존 SVG를 DOM에서 완전 제거 (hide는 SVG를 남겨둬 누적 발생)
+  data.items.forEach(({ el }) => {
+    el.parentElement?.querySelectorAll('svg.rough-annotation').forEach(svg => svg.remove());
+  });
+
+  // 새로 annotate → 항상 처음부터 animation 실행
+  data.annotations = data.items.map(({ el, options }) => RoughNotation.annotate(el, options));
+  data.annotations.forEach((a, i) => setTimeout(() => a.show(), i * 200));
 }
 
 function hideContentAnnotations(infoContent) {
-  const annotations = contentAnnotationMap.get(infoContent);
-  if (!annotations) return;
-  annotations.forEach(a => a.hide());
+  const data = contentAnnotationMap.get(infoContent);
+  if (!data) return;
+  data.annotations.forEach(a => a.hide());
 }
 
 // ── info-content 교체 (패널 내 컨텍스트로 탐색) ──
@@ -71,6 +78,37 @@ function switchInfoContent(id, panel) {
   });
 }
 
+// ── grid-set fade-in Observer ──
+let gridObserver = null;
+
+function initGridObserver(panel) {
+  if (gridObserver) {
+    gridObserver.disconnect();
+    gridObserver = null;
+  }
+
+  // 탭 전환 시 초기화
+  panel.querySelectorAll('.project__grid-wrap > .grid-set').forEach(el => {
+    el.classList.remove('is-visible');
+  });
+
+  gridObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        // 뷰포트 이탈 시 초기화 → 재진입 시 다시 애니메이션
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, {
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0,
+  });
+
+  panel.querySelectorAll('.project__grid-wrap > .grid-set').forEach(el => gridObserver.observe(el));
+}
+
 // ── 프로젝트 IntersectionObserver ──
 let projectObserver = null;
 
@@ -84,7 +122,21 @@ function initProjectObserver(panel) {
     el.classList.remove('is-active', 'enter-down', 'enter-up');
   });
 
-  if (tabletBreakpoint.matches) return;
+  if (tabletBreakpoint.matches) {
+    // 모바일: info-content 자체가 뷰포트 진입 시 애니메이션 실행
+    projectObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        showContentAnnotations(entry.target);
+      });
+    }, {
+      rootMargin: '-10% 0px -10% 0px',
+      threshold: 0,
+    });
+
+    panel.querySelectorAll('.info-content').forEach(el => projectObserver.observe(el));
+    return;
+  }
 
   // 첫 번째 프로젝트 즉시 활성화
   const firstProject = panel.querySelector('.project[data-project]');
@@ -148,6 +200,7 @@ document.querySelectorAll('.tab-button').forEach(button => {
     lenis.scrollTo(0, { immediate: true });
     rearrangeInfoContents(activePanel, tabletBreakpoint.matches);
     initProjectObserver(activePanel);
+    initGridObserver(activePanel);
   });
 });
 
@@ -157,12 +210,14 @@ tabletBreakpoint.addEventListener('change', () => {
   if (!activePanel) return;
   rearrangeInfoContents(activePanel, tabletBreakpoint.matches);
   initProjectObserver(activePanel);
+  initGridObserver(activePanel);
 });
 
 // 초기 실행
 const initialPanel = document.querySelector('.tab-panel.is-active');
 rearrangeInfoContents(initialPanel, tabletBreakpoint.matches);
 initProjectObserver(initialPanel);
+initGridObserver(initialPanel);
 
 
 // view project 호버 밑줄
