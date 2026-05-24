@@ -74,6 +74,12 @@ body {
   gap: 20px;
 }
 
+@media (max-width: 767px) {
+  .header ul {
+    display: none;
+  }
+}
+
 .header ul li {
   position: relative;
 }
@@ -173,6 +179,19 @@ body {
   transform: translateY(-9px) rotate(-45deg);
 }
 
+@media (max-width: 767px) {
+  .header__hamburger {
+    gap: 5px;
+  }
+  .header__hamburger span {
+    width: 24px;
+  }
+  .header__hamburger.is-active span:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+}
+
+
 /* ── Nav Overlay ── */
 .nav-overlay {
   position: fixed;
@@ -266,6 +285,10 @@ body {
 .footer .footer__content-1 {
   margin-bottom: 4vw;
 }
+.footer .footer__content-1 .title {
+  font-size: 16px;
+  font-weight: 500;
+}
 .footer .footer__content-1 ul {
   margin-top: 32px;
   text-align: right;
@@ -290,6 +313,26 @@ body {
 .footer .footer__content-3 h3 {
   font-size: clamp(14px, 1.667vw, 20px);
 }
+
+
+@media (max-width: 767px) {
+  .footer .footer__content-2 h2 {
+    font-size: 48px;
+  }
+
+  .footer .footer__content-3 h3 {
+    font-size: 12px;
+  }
+
+  .footer .footer__content-1 .title {
+    font-size: 16px;
+  }
+
+  .footer .footer__content-1 ul li {
+    font-size: 14px;
+  }
+}
+
 
 
 /* ── sticker ── */
