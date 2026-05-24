@@ -102,6 +102,11 @@ hamburger.addEventListener('click', () => {
   overlay.classList.toggle('is-active');
   document.body.classList.toggle('nav-open');
 
+  // aria 상태 업데이트
+  hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+  hamburger.setAttribute('aria-label', isActive ? '메뉴 닫기' : '메뉴 열기');
+  overlay.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
   // 오버레이가 열리면 스크롤 정지, 닫히면 재개
   if (isActive) {
     lenis.stop();

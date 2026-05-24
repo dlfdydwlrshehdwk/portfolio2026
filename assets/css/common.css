@@ -6,6 +6,23 @@ body {
   line-height: 1;
 }
 
+/* ── 스킵 내비게이션 ── */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 8px 16px;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-nav:focus {
+  top: 0;
+}
+
 /* ── Display Utility ── */
 .pc-block { display: block; }
 .pc-flex  { display: flex; }

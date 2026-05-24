@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>portfolio</title>
+  <title>kdh | Portfolio</title>
+  <meta name="description" content="프론트엔드 개발자 김동호의 포트폴리오 — 이커머스, 브랜드 사이트, AI 기반 프로젝트">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Bebas+Neue&family=Caveat:wght@400..700&family=Crafty+Girls&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Permanent+Marker&family=Shadows+Into+Light+Two&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -14,6 +15,8 @@
   <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
+
+  <a href="#main-content" class="skip-nav">본문 바로가기</a>
 
   <!-- 인트로 -->
   <!-- <div class="intro">
@@ -91,14 +94,14 @@
         </a>
       </li>
     </ul>
-    <button class="header__hamburger" aria-label="메뉴 열기">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="header__hamburger" aria-label="메뉴 열기" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </button>
   </header>
 
-  <nav class="nav-overlay">
+  <nav class="nav-overlay" aria-label="모바일 메뉴" aria-hidden="true">
     <ul class="nav-overlay__list">
       <li class="nav-overlay__item">
         <a href="work.html" class="nav-overlay__link">WORK</a>
@@ -109,12 +112,12 @@
     </ul>
   </nav>
 
-  <main>
-    <section class="hero">
-      <div class="crafty-text hero_title">kdh portfolio</div>
-      <div class="scroll-indicator">
+  <main id="main-content">
+    <section class="hero" aria-label="소개">
+      <p class="crafty-text hero_title">kdh portfolio</p>
+      <div class="scroll-indicator" aria-hidden="true">
         <span class="scroll-indicator__text">SCROLL DOWN</span>
-        <svg viewBox="100 0 160 200" width="40" height="50" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="100 0 160 200" width="40" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g fill="none" stroke="#141414" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
             <path class="si-line" d="M 180 10 C 176 58, 188 94, 180 170"/>
             <path class="si-head" d="M 136 134 Q 174 166 180 182 Q 188 166 224 134"/>
@@ -123,10 +126,10 @@
       </div>
     </section>
 
-    <section>
+    <section aria-label="작업 카테고리">
       <div class="paper-card paper-card-1">
           <!-- 테두리 -->
-          <svg class="paper-line" viewBox="0 0 1000 420" preserveAspectRatio="none">
+          <svg class="paper-line" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
             <path d="
             M8 18
             C180 8, 420 14, 990 10
@@ -136,55 +139,55 @@
             Z
             "/>
           </svg>
-          
-          <div class="card-number">
+
+          <div class="card-number" aria-hidden="true">
             <span class="text">01</span>
           </div>
 
           <!-- 안에 콘텐츠 -->
           <div class="info">
-            <div class="sketch-text category">CATEGORY</div>
-            <div class="title title-text"><span class="show-text">E-COMMERCE</span><span class="rough"></span></div>
-  
-            <div class="desc"><span class="desc-underline">사용자 흐름과 관리자 구조를 연결</span>하여<br/>
-            구매 전환까지 이어지는 이커머스 사이트를 만듭니다.</div>
-  
-            <div class="hashtag">
-              <span>#카페24</span>
-              <span>#고도몰</span>
-              <span>#이커머스</span>
-              <span>#쇼핑몰</span>
-              <span>#관리자</span>
-            </div>
-            
-            <a href="" class="view-project sketch-text">
+            <p class="sketch-text category">CATEGORY</p>
+            <h2 class="title title-text"><span class="show-text">E-COMMERCE</span><span class="rough" aria-hidden="true"></span></h2>
+
+            <p class="desc"><span class="desc-underline">사용자 흐름과 관리자 구조를 연결</span>하여<br/>
+            구매 전환까지 이어지는 이커머스 사이트를 만듭니다.</p>
+
+            <ul class="hashtag" aria-label="관련 기술">
+              <li><span>#카페24</span></li>
+              <li><span>#고도몰</span></li>
+              <li><span>#이커머스</span></li>
+              <li><span>#쇼핑몰</span></li>
+              <li><span>#관리자</span></li>
+            </ul>
+
+            <a href="work.html" class="view-project sketch-text">
               <span>view project</span>
-              <svg class="draw-arrow" viewBox="0 0 90 50" fill="none">
+              <svg class="draw-arrow" viewBox="0 0 90 50" fill="none" aria-hidden="true">
                   <path class="arrow-line" d="M10 25 Q35 22 59 25" />
                   <path class="arrow-head" d="M60 18 L75 25 L60 32" />
               </svg>
             </a>
           </div>
 
-          <div class="img-wrap">
+          <div class="img-wrap" aria-hidden="true">
             <div class="main-img">
-              <img src="./assets/images/index/axiy1.png" alt="이미지">
-              <div class="sub-img sub-img-1"><img src="./assets/images/index/axiy2.png" alt="이미지"></div>
-              <div class="sub-img sub-img-2"><img src="./assets/images/index/axiy3.png" alt="이미지"></div>
+              <img src="./assets/images/index/axiy1.png" alt="">
+              <div class="sub-img sub-img-1"><img src="./assets/images/index/axiy2.png" alt=""></div>
+              <div class="sub-img sub-img-2"><img src="./assets/images/index/axiy3.png" alt=""></div>
             </div>
           </div>
 
-          <div class="sticker-box cafe24">
+          <div class="sticker-box cafe24" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/1_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/1_front.webp"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/1_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/1_front.webp" alt=""></div>
             </div>
           </div>
 
-          <div class="sticker-box godo">
+          <div class="sticker-box godo" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/2_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/2_front.png"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/2_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/2_front.png" alt=""></div>
             </div>
           </div>
 
@@ -192,7 +195,7 @@
 
       <div class="paper-card paper-card-2">
           <!-- 테두리 -->
-          <svg class="paper-line" viewBox="0 0 1000 420" preserveAspectRatio="none">
+          <svg class="paper-line" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
             <path d="
             M8 18
             C180 8, 420 14, 990 10
@@ -202,71 +205,71 @@
             Z
             "/>
           </svg>
-          
-          <div class="card-number">
+
+          <div class="card-number" aria-hidden="true">
             <span class="text">02</span>
           </div>
 
           <!-- 안에 콘텐츠 -->
           <div class="info">
-            <div class="sketch-text category">CATEGORY</div>
-            <div class="title title-text"><span class="show-text">BRAND SITE</span><span class="rough"></span></div>
-  
-            <div class="desc">기획과 시안을 기반으로 <span class="desc-underline">관리자 기능과 동적 데이터를 연결</span>하고<br/>
+            <p class="sketch-text category">CATEGORY</p>
+            <h2 class="title title-text"><span class="show-text">BRAND SITE</span><span class="rough" aria-hidden="true"></span></h2>
+
+            <p class="desc">기획과 시안을 기반으로 <span class="desc-underline">관리자 기능과 동적 데이터를 연결</span>하고<br/>
             다양한 플러그인과 <span class="desc-circle-1">인터랙션</span>, <span class="desc-circle-2">애니메이션</span>을 더해<br/>
-            <span class="desc-highlight">완성도 높은 웹페이지를 구현</span>합니다.</div>
-  
-            <div class="hashtag">
-              <span>#애니메이션</span>
-              <span>#GSAP</span>
-              <span>#SCROLL</span>
-              <span>#THYMELEAF</span>
-              <span>#REACT</span>
-              <span>#PLUGIN</span>
-            </div>
-            
-            <a href="" class="view-project sketch-text">
+            <span class="desc-highlight">완성도 높은 웹페이지를 구현</span>합니다.</p>
+
+            <ul class="hashtag" aria-label="관련 기술">
+              <li><span>#애니메이션</span></li>
+              <li><span>#GSAP</span></li>
+              <li><span>#SCROLL</span></li>
+              <li><span>#THYMELEAF</span></li>
+              <li><span>#REACT</span></li>
+              <li><span>#PLUGIN</span></li>
+            </ul>
+
+            <a href="work.html" class="view-project sketch-text">
               <span>view project</span>
-              <svg class="draw-arrow" viewBox="0 0 90 50" fill="none">
+              <svg class="draw-arrow" viewBox="0 0 90 50" fill="none" aria-hidden="true">
                   <path class="arrow-line" d="M10 25 Q35 22 59 25" />
                   <path class="arrow-head" d="M60 18 L75 25 L60 32" />
               </svg>
             </a>
           </div>
 
-          <div class="img-wrap">
+          <div class="img-wrap" aria-hidden="true">
             <div class="main-img">
-              <img src="./assets/images/index/brand1.png" alt="이미지">
-              <div class="sub-img sub-img-2"><img src="./assets/images/index/brand3.png" alt="이미지"></div>
+              <img src="./assets/images/index/brand1.png" alt="">
+              <div class="sub-img sub-img-2"><img src="./assets/images/index/brand3.png" alt=""></div>
             </div>
-            <div class="sub-img sub-img-1"><img src="./assets/images/index/brand2.png" alt="이미지"></div>
+            <div class="sub-img sub-img-1"><img src="./assets/images/index/brand2.png" alt=""></div>
           </div>
 
-          <div class="sticker-box react">
+          <div class="sticker-box react" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/3_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/3_front.png"></div>
-            </div>
-          </div>
-
-          <div class="sticker-box html">
-            <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/4_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/4_front.png"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/3_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/3_front.png" alt=""></div>
             </div>
           </div>
 
-          <div class="sticker-box css">
+          <div class="sticker-box html" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/5_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/5_front.png"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/4_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/4_front.png" alt=""></div>
             </div>
           </div>
 
-          <div class="sticker-box js">
+          <div class="sticker-box css" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/4_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/6_front.png"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/5_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/5_front.png" alt=""></div>
+            </div>
+          </div>
+
+          <div class="sticker-box js" aria-hidden="true">
+            <div class="sticker-anim">
+              <div class="sticker sticker-back"><img src="assets/images/index/4_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/6_front.png" alt=""></div>
             </div>
           </div>
 
@@ -274,7 +277,7 @@
       
       <div class="paper-card paper-card-3">
           <!-- 테두리 -->
-          <svg class="paper-line" viewBox="0 0 1000 420" preserveAspectRatio="none">
+          <svg class="paper-line" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
             <path d="
             M8 18
             C180 8, 420 14, 990 10
@@ -284,68 +287,66 @@
             Z
             "/>
           </svg>
-          
-          <div class="card-number">
+
+          <div class="card-number" aria-hidden="true">
             <span class="text">03</span>
           </div>
 
           <!-- 안에 콘텐츠 -->
           <div class="info">
-            <div class="sketch-text category">CATEGORY</div>
-            <div class="title title-text"><span class="show-text">AI BASED</span><span class="rough"></span></div>
-  
-            <div class="desc">AI 도구를 활용해 <span class="desc-box">아이디어를 구조화</span>하고 <br/>
-            <span class="desc-highlight">전체 흐름을 판단</span>하여 결과물을 완성합니다.</div>
-  
-            <div class="hashtag">
-              <span>#ChatGPT </span>
-              <span>#Claude </span>
-              <span>#Prompt </span>
-              <span>#GEMINI</span>
-              <span>#MCP</span>
-              <span>#Workflow</span>
-              <span>#CodeReview</span>
-            </div>
-            
-            <a href="" class="view-project sketch-text">
+            <p class="sketch-text category">CATEGORY</p>
+            <h2 class="title title-text"><span class="show-text">AI BASED</span><span class="rough" aria-hidden="true"></span></h2>
+
+            <p class="desc">AI 도구를 활용해 <span class="desc-box">아이디어를 구조화</span>하고 <br/>
+            <span class="desc-highlight">전체 흐름을 판단</span>하여 결과물을 완성합니다.</p>
+
+            <ul class="hashtag" aria-label="관련 기술">
+              <li><span>#ChatGPT</span></li>
+              <li><span>#Claude</span></li>
+              <li><span>#Prompt</span></li>
+              <li><span>#GEMINI</span></li>
+              <li><span>#MCP</span></li>
+              <li><span>#Workflow</span></li>
+              <li><span>#CodeReview</span></li>
+            </ul>
+
+            <a href="work.html" class="view-project sketch-text">
               <span>view project</span>
-              <svg class="draw-arrow" viewBox="0 0 90 50" fill="none">
+              <svg class="draw-arrow" viewBox="0 0 90 50" fill="none" aria-hidden="true">
                   <path class="arrow-line" d="M10 25 Q35 22 59 25" />
                   <path class="arrow-head" d="M60 18 L75 25 L60 32" />
               </svg>
             </a>
           </div>
 
-          <div class="img-wrap">
+          <div class="img-wrap" aria-hidden="true">
             <div class="box-1">
-
               <div class="main-img">
-                <img src="./assets/images/index/ai1.png" alt="이미지">
-                <div class="sub-img sub-img-2"><img src="./assets/images/index/ai3.png" alt="이미지"></div>
+                <img src="./assets/images/index/ai1.png" alt="">
+                <div class="sub-img sub-img-2"><img src="./assets/images/index/ai3.png" alt=""></div>
               </div>
-              <div class="sub-img sub-img-1"><img src="./assets/images/index/ai2.png" alt="이미지"></div>
-            </div>
-
-          </div>
-
-          <div class="sticker-box gpt">
-            <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/9_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/9_front.png"></div>
+              <div class="sub-img sub-img-1"><img src="./assets/images/index/ai2.png" alt=""></div>
             </div>
           </div>
 
-          <div class="sticker-box gemini">
+          <div class="sticker-box gpt" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/7_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/7_front.png"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/9_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/9_front.png" alt=""></div>
             </div>
           </div>
 
-          <div class="sticker-box claude">
+          <div class="sticker-box gemini" aria-hidden="true">
             <div class="sticker-anim">
-              <div class="sticker sticker-back"><img src="assets/images/index/8_back.png"></div>
-              <div class="sticker sticker-front"><img src="assets/images/index/8_front.png"></div>
+              <div class="sticker sticker-back"><img src="assets/images/index/7_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/7_front.png" alt=""></div>
+            </div>
+          </div>
+
+          <div class="sticker-box claude" aria-hidden="true">
+            <div class="sticker-anim">
+              <div class="sticker sticker-back"><img src="assets/images/index/8_back.png" alt=""></div>
+              <div class="sticker sticker-front"><img src="assets/images/index/8_front.png" alt=""></div>
             </div>
           </div>
 

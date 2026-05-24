@@ -190,12 +190,21 @@ document.querySelectorAll('.tab-button').forEach(button => {
   button.addEventListener('click', () => {
     const target = button.dataset.tab;
 
-    document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('is-active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('is-active'));
+    document.querySelectorAll('.tab-button').forEach(b => {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.remove('is-active');
+      p.setAttribute('aria-hidden', 'true');
+    });
 
     button.classList.add('is-active');
+    button.setAttribute('aria-selected', 'true');
+
     const activePanel = document.querySelector(`.tab-panel[data-panel="${target}"]`);
     activePanel.classList.add('is-active');
+    activePanel.setAttribute('aria-hidden', 'false');
 
     lenis.scrollTo(0, { immediate: true });
     rearrangeInfoContents(activePanel, tabletBreakpoint.matches);
